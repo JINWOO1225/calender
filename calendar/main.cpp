@@ -51,23 +51,15 @@ public:
 	{
 		switch (month)
 		{
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 11:
+			case 1: case 3: case 5: case 7: case 8: case 10: case 11:
 				dayMax = 31;
 				break;
 				
-			case 4:
-			case 6:
-			case 9:
+			case 4: case 6: case 9:
 				dayMax = 30;
 				break;
 				
-			case 2:
+			case 2: //2월의 윤년을 계산후 dayMax변수에 저장
 				isitLeapYear();
 				if (LeapYear)
 				{
@@ -84,10 +76,21 @@ public:
 	void add_day(int inc)
 	{
 		day += inc;
+		while (day > dayMax)
+		{
+			day -= dayMax;
+			add_month(1);
+			setDayMax();
+		}
 	}
 	void add_month(int inc)
 	{
 		month += inc;
+		while(month > 12)
+		{
+			month -= 12;
+			add_year(1);
+		}
 	}
 	void add_year(int inc)
 	{
