@@ -9,7 +9,7 @@
  
  여러분은 아래와 같은 Date 클래스를 디자인 하려고 합니다. set_date 는 말그대로 Date 함수 내부를 초기화 하는 것이고 add_day, add_month, add_year 는 일, 월, 년을 원하는 만큼 더하게 됩니다. 한 가지 주의할 점은 만일 2012 년 2 월 28 일에 3 일을 더하면 2012 년 2 월 31 일이 되는 것이 아니라 2012 년 3 월 2 일이 되겠지요? (난이도 : 上)
  */
-
+//이 코드는 그레고리력 달력을 참고했습니다.
 #include <iostream>
 
 using namespace std;
@@ -17,8 +17,8 @@ using namespace std;
 class Date {
 	int year;
 	int month;
-	int day;
-	
+	int day,dayMax;
+	bool LeapYear;
 public:
 	void set_date(int _year, int _month, int _day)
 	{
@@ -26,9 +26,25 @@ public:
 		month = _month;
 		day = _day;
 	}
+	void isitLeapYear(int _year)//리턴값으로 윤년의 여부를 확인해주는 함수
+	{
+		if(!(_year % 4))
+		{
+			LeapYear = 1;
+		}
+		if(!(_year % 100))
+		{
+			LeapYear = 0;
+		}
+		if(!(_year % 400))
+		{
+			LeapYear = 1;
+		}
+	}
 	void add_day(int inc)
 	{
 		day += inc;
+		if(month)
 	}
 	void add_month(int inc)
 	{
@@ -55,14 +71,14 @@ int main(int argc, const char * argv[])
 		cout << "1 : 날짜 설정\n2 : 추가\n3 : 날짜 표시\n";
 		cin >> index;
 		switch (index) {
-			case 1:
+			case 1:	//날짜 설정
 				int year,month,day;
 				cout << "년 월 일 순으로 입력하세요.";
 				cin >> year >> month >> day;
 				date.set_date(year, month, day);
 				break;
 				
-			case 2:
+			case 2:	//날짜 추가
 				int select_add,inc;
 				cout << "1 : 일 추가\n2 : 월 추가\n3 : 년 추가\n";
 				cin >> select_add;
@@ -86,7 +102,7 @@ int main(int argc, const char * argv[])
 				}
 				break;
 				
-			case 3:
+			case 3:	//날짜 표시
 				date.get_date();
 				
 			default:
