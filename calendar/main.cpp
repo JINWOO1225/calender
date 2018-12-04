@@ -30,6 +30,7 @@ public:
 		year = _year;
 		month = _month;
 		day = _day;
+		setDayMax();
 	}
 	void isitLeapYear()//리턴값으로 윤년의 여부를 확인해주는 함수
 	{
@@ -95,6 +96,7 @@ public:
 	void add_year(int inc)
 	{
 		year += inc;
+		isitLeapYear();
 	}
 	void get_date()
 	{
